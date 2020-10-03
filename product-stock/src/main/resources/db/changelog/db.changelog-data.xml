@@ -63,14 +63,7 @@
         </insert>
 
         <insert tableName="PRODUCT">
-            <column name="NAME" value="Panettone Nestlé"/>
-            <column name="DESCRIPTION" value="Frutas Cristalizadas, 400g"/>
-            <column name="PRICE" value="1235"/>
-            <column name="QUANTITY" value="14"/>
-        </insert>
-
-        <insert tableName="PRODUCT">
-            <column name="NAME" value="Panettone Nestlé"/>
+            <column name="NAME" value="Chocottone Nestlé"/>
             <column name="DESCRIPTION" value="Gotas de Chocolate, 400g"/>
             <column name="PRICE" value="1460"/>
             <column name="QUANTITY" value="17"/>
