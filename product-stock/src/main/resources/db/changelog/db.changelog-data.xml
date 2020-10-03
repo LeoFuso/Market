@@ -1,0 +1,19 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+
+    <changeSet id="PRODUCTS" author="daniel.lima">
+
+        <insert tableName="PRODUCT">
+            <column name="ID" value="1"/>
+            <column name="NAME" value="Detergente Omo"/>
+            <column name="DESCRIPTION" value="Nossa"/>
+            <column name="PRICE" value="1199"/>
+            <column name="QUANTITY" value="3"/>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>
