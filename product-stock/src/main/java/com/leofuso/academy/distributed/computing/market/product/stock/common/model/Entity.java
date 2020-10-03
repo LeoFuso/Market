@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.time.Instant;
 
 /**
- * Primarily used for database mapping, although an Id is extremely useful in many cases, the other
- * attributes are not as widely used, and are for identification purposes only.
+ * Primarily used for database mapping, although an Id is extremely useful in many cases, the other attributes are not
+ * as widely used, and are for identification purposes only.
  */
 public interface Entity extends Serializable {
 

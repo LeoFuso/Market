@@ -38,7 +38,7 @@
             <column name="NAME" value="Cereal Matinal Nescal"/>
             <column name="DESCRIPTION" value="Sabor Chocolate, 770g"/>
             <column name="PRICE" value="1679"/>
-            <column name="QUANTITY" value="2"/>
+            <column name="QUANTITY" value="0"/>
         </insert>
 
         <insert tableName="PRODUCT">
