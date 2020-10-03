@@ -7,11 +7,73 @@
     <changeSet id="PRODUCTS" author="daniel.lima">
 
         <insert tableName="PRODUCT">
-            <column name="ID" value="1"/>
-            <column name="NAME" value="Detergente Omo"/>
-            <column name="DESCRIPTION" value="Nossa"/>
-            <column name="PRICE" value="1199"/>
-            <column name="QUANTITY" value="3"/>
+            <column name="NAME" value="Cerveja Amstel"/>
+            <column name="DESCRIPTION" value="Lager - Lata - 350ml"/>
+            <column name="PRICE" value="249"/>
+            <column name="QUANTITY" value="36"/>
+        </insert>
+
+        <insert tableName="PRODUCT">
+            <column name="NAME" value="Feijão-Carioca Nene"/>
+            <column name="DESCRIPTION" value="Tipo 1, 1kg"/>
+            <column name="PRICE" value="499"/>
+            <column name="QUANTITY" value="20"/>
+        </insert>
+
+        <insert tableName="PRODUCT">
+            <column name="NAME" value="Lava-Roupas Em Pó Tixan Ypê"/>
+            <column name="DESCRIPTION" value="Primavera, 2kg"/>
+            <column name="PRICE" value="1090"/>
+            <column name="QUANTITY" value="15"/>
+        </insert>
+
+        <insert tableName="PRODUCT">
+            <column name="NAME" value="Sorvete Sensação"/>
+            <column name="DESCRIPTION" value="Sabor chocolate, 1,5L"/>
+            <column name="PRICE" value="1099"/>
+            <column name="QUANTITY" value="22"/>
+        </insert>
+
+        <insert tableName="PRODUCT">
+            <column name="NAME" value="Cereal Matinal Nescal"/>
+            <column name="DESCRIPTION" value="Sabor Chocolate, 770g"/>
+            <column name="PRICE" value="1679"/>
+            <column name="QUANTITY" value="2"/>
+        </insert>
+
+        <insert tableName="PRODUCT">
+            <column name="NAME" value="Guaraná Antarctica"/>
+            <column name="DESCRIPTION" value="Tradicional, 350ml"/>
+            <column name="PRICE" value="219"/>
+            <column name="QUANTITY" value="52"/>
+        </insert>
+
+        <insert tableName="PRODUCT">
+            <column name="NAME" value="Pipoca de Micro-ondas Yoki"/>
+            <column name="DESCRIPTION" value="Manteiga, 100g"/>
+            <column name="PRICE" value="167"/>
+            <column name="QUANTITY" value="43"/>
+        </insert>
+
+        <insert tableName="PRODUCT">
+            <column name="NAME" value="Panettone Nestlé"/>
+            <column name="DESCRIPTION" value="Frutas Cristalizadas, 400g"/>
+            <column name="PRICE" value="1235"/>
+            <column name="QUANTITY" value="14"/>
+        </insert>
+
+        <insert tableName="PRODUCT">
+            <column name="NAME" value="Panettone Nestlé"/>
+            <column name="DESCRIPTION" value="Frutas Cristalizadas, 400g"/>
+            <column name="PRICE" value="1235"/>
+            <column name="QUANTITY" value="14"/>
+        </insert>
+
+        <insert tableName="PRODUCT">
+            <column name="NAME" value="Panettone Nestlé"/>
+            <column name="DESCRIPTION" value="Gotas de Chocolate, 400g"/>
+            <column name="PRICE" value="1460"/>
+            <column name="QUANTITY" value="17"/>
         </insert>
 
     </changeSet>
