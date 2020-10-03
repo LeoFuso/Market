@@ -1,0 +1,15 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <property name="now_function" value="now()"/>
+
+    <changeSet id="IMPORT_UUID_EXTENSION" author="leonardo.nuzzo">
+        <sql dbms="postgresql">
+            CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+            SET TIMEZONE = 'UTC';
+        </sql>
+    </changeSet>
+
+
+</databaseChangeLog>
