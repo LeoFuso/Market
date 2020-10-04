@@ -1,8 +1,6 @@
-package com.leofuso.academy.distributed.computing.market.consumer.offer.api;
+package com.leofuso.academy.distributed.computing.market.consumer.offer.api.model;
 
 import java.util.Objects;
-
-import javax.validation.constraints.NotNull;
 
 public class Offer {
 
@@ -11,7 +9,7 @@ public class Offer {
     private final String description;
     private final Long price;
 
-    public Offer(@NotNull Long id, @NotNull String name, @NotNull String description, @NotNull Long price) {
+    public Offer(Long id, String name, String description, Long price) {
         this.id = Objects.requireNonNull(id);
         this.name = Objects.requireNonNull(name);
         this.description = Objects.requireNonNull(description);

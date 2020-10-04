@@ -1,61 +1,119 @@
 package com.leofuso.academy.distributed.computing.market.consumer;
 
-import java.util.LinkedHashMap;
 import java.util.Objects;
 import java.util.Set;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
-import org.springframework.shell.table.BeanListTableModel;
-import org.springframework.shell.table.BorderStyle;
-import org.springframework.shell.table.CellMatcher;
-import org.springframework.shell.table.SimpleHorizontalAligner;
-import org.springframework.shell.table.SimpleVerticalAligner;
+import org.springframework.shell.standard.ShellOption;
 import org.springframework.shell.table.Table;
-import org.springframework.shell.table.TableBuilder;
-import org.springframework.shell.table.TableModel;
-import com.leofuso.academy.distributed.computing.market.consumer.cart.api.CartService;
-import com.leofuso.academy.distributed.computing.market.consumer.offer.api.Offer;
-import com.leofuso.academy.distributed.computing.market.consumer.offer.api.OfferService;
+import com.leofuso.academy.distributed.computing.market.consumer.commons.ShellHelper;
+import com.leofuso.academy.distributed.computing.market.consumer.offer.api.ShoppingService;
+import com.leofuso.academy.distributed.computing.market.consumer.offer.api.model.Cart;
+import com.leofuso.academy.distributed.computing.market.consumer.offer.api.model.Offer;
 
-/*
-listar itens disponíveis
-
-adicionar item ao carrinho
-- quantidade, item
-
-remover item do carrinho
-- quantidade, item
-
-finalizar compra
-
-mostrar itens do carrinho
-
-* */
+import static com.leofuso.academy.distributed.computing.market.consumer.commons.TableRenderer.render;
 
 @ShellComponent
 public class ShoppingCart {
 
-    private final OfferService offerService;
-    private final CartService cartService;
+    private final ShoppingService shoppingService;
     private final ConversionService converter;
+    private ShellHelper shell;
 
-    public ShoppingCart(OfferService offerService,
-                        CartService cartService,
-                        ConversionService conversionService) {
+    public ShoppingCart(final ShoppingService shoppingService,
+                        final ConversionService conversionService,
+                        final ShellHelper shell) {
 
-        this.offerService = Objects.requireNonNull(offerService);
-        this.cartService = Objects.requireNonNull(cartService);
+        this.shoppingService = Objects.requireNonNull(shoppingService);
         this.converter = Objects.requireNonNull(conversionService);
+        this.shell = Objects.requireNonNull(shell);
     }
+
 
     @ShellMethod(
             value = "Display a list of all offers available for purchasing",
             key = "list offers"
     )
-    public Table listAvailableOffers() {
-        Set<Offer> offers = offerService.list();
-        return converter.convert(offers, Table.class);
+    public void listAvailableOffers() {
+        final Set<Offer> offers = shoppingService.listOffers();
+        final Table table = Objects.requireNonNull(converter.convert(offers, Table.class));
+        shell.print(render(table));
     }
 
+    @ShellMethod(
+            value = "Create a new empty cart",
+            key = "create cart"
+    )
+    public void createCart() {
+        final Cart cart = shoppingService.createCart();
+        shell.print(String.format("New cart created with id: %d", cart.getId()));
+    }
+
+    @ShellMethod(
+            value = "Print information related to a cart",
+            key = "retrieve cart"
+    )
+    public void retrieveCart(
+            @ShellOption(
+                    value = {"-c", "--cart"},
+                    help = "The id of the cart to be retrieved."
+            ) final Long cartId) {
+
+        final Cart cart = shoppingService.retrieveCart(cartId);
+        printCartInformation(cart);
+    }
+
+    @ShellMethod(
+            value = "Add items to a cart",
+            key = "add item"
+    )
+    public void addItem(
+            @ShellOption(
+                    value = {"-c", "--cart"},
+                    help = "The id of the cart to be retrieved."
+            ) final Long cartId,
+
+            @ShellOption(
+                    value = {"-i", "--item"},
+                    help = "The id of the offer to be added to the cart"
+            ) final Long offerId,
+
+            @ShellOption(
+                    value = {"-q", "--quantity"},
+                    help = "The quantity of items to be added to the cart"
+            ) final Integer quantity) {
+
+        final Cart cart = shoppingService.addItem(cartId, offerId, quantity);
+        printCartInformation(cart);
+    }
+
+    @ShellMethod(
+            value = "Remove items from a cart",
+            key = "remove item"
+    )
+    public void removeItem(
+            @ShellOption(
+                    value = {"-c", "--cart"},
+                    help = "The id of the cart to be retrieved."
+            ) final Long cartId,
+
+            @ShellOption(
+                    value = {"-i", "--item"},
+                    help = "The id of the offer to be added to the cart"
+            ) final Long offerId,
+
+            @ShellOption(
+                    value = {"-q", "--quantity"},
+                    help = "The quantity of items to be added to the cart"
+            ) final Integer quantity) {
+
+        final Cart cart = shoppingService.removeItem(cartId, offerId, quantity);
+        printCartInformation(cart);
+    }
+
+    private void printCartInformation (final Cart cart) {
+        //TODO this
+        throw new UnsupportedOperationException("to be implemented");
+    }
 }

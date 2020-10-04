@@ -3,6 +3,7 @@ package com.leofuso.academy.distributed.computing.market.consumer.client.convert
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.springframework.core.convert.converter.Converter;
@@ -15,7 +16,8 @@ import org.springframework.shell.table.Table;
 import org.springframework.shell.table.TableBuilder;
 import org.springframework.shell.table.TableModel;
 import org.springframework.stereotype.Component;
-import com.leofuso.academy.distributed.computing.market.consumer.offer.api.Offer;
+import com.leofuso.academy.distributed.computing.market.consumer.commons.TableFormatter;
+import com.leofuso.academy.distributed.computing.market.consumer.offer.api.model.Offer;
 
 @Component
 public final class OffersToTableConverter implements Converter<Set<Offer>, Table> {
@@ -23,25 +25,22 @@ public final class OffersToTableConverter implements Converter<Set<Offer>, Table
     @Override
     public Table convert(@NonNull final Set<Offer> source) {
 
-        final List<Offer> restrictionList =
+        final List<Offer> offers =
                 source.stream()
                         .sorted(Comparator.comparingLong(Offer::getId))
                         .collect(Collectors.toList());
 
-        LinkedHashMap<String, Object> headers = new LinkedHashMap<>();
-        headers.put("id", "Id");
-        headers.put("name", "Name");
-        headers.put("description", "Description");
-        headers.put("price", "Price");
-        TableModel model = new BeanListTableModel<>(source, headers);
+        //the model needs to use a linked hash map
+        final LinkedHashMap<String, Object> headers = new LinkedHashMap<>(Map.of(
+                "id", "Id",
+                "name", "Name",
+                "description", "Description",
+                "price", "Price"));
 
-        TableBuilder tableBuilder = new TableBuilder(model);
-        return tableBuilder.on((row, column, m) -> true)
-                .addAligner(SimpleVerticalAligner.middle)
-                .addAligner(SimpleHorizontalAligner.center)
-                .and()
-                .addFullBorder(BorderStyle.fancy_light)
-                .build();
+        final TableModel model = new BeanListTableModel<>(offers, headers);
+        final TableBuilder tableBuilder = new TableBuilder(model);
+
+        return TableFormatter.format(tableBuilder);
     }
 }
 
