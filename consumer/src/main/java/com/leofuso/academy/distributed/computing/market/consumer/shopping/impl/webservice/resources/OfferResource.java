@@ -1,4 +1,4 @@
-package com.leofuso.academy.distributed.computing.market.consumer.offer.impl.webservice.resources;
+package com.leofuso.academy.distributed.computing.market.consumer.shopping.impl.webservice.resources;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -11,19 +11,16 @@ public class OfferResource implements Serializable {
     private final String name;
     private final String description;
     private final Long price;
-    private final Integer quantity;
 
     @JsonCreator
     public OfferResource(@JsonProperty("id") final Long id,
                          @JsonProperty("name") final String name,
                          @JsonProperty("description") final String description,
-                         @JsonProperty("price") final Long price,
-                         @JsonProperty("quantity") Integer quantity) {
+                         @JsonProperty("price") final Long price) {
         this.id = Objects.requireNonNull(id);
         this.name = Objects.requireNonNull(name);
         this.description = Objects.requireNonNull(description);
         this.price = Objects.requireNonNull(price);
-        this.quantity = Objects.requireNonNull(quantity);
     }
 
     public Long getId() {
@@ -40,9 +37,5 @@ public class OfferResource implements Serializable {
 
     public Long getPrice() {
         return price;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
     }
 }

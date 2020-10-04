@@ -1,4 +1,4 @@
-package com.leofuso.academy.distributed.computing.market.consumer.offer.api.model;
+package com.leofuso.academy.distributed.computing.market.consumer.shopping.api.model;
 
 import java.util.Objects;
 

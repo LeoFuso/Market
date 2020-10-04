@@ -1,4 +1,4 @@
-package com.leofuso.academy.distributed.computing.market.consumer.offer.impl.webservice.resources;
+package com.leofuso.academy.distributed.computing.market.consumer.shopping.impl.webservice.resources;
 
 import java.io.Serializable;
 import java.util.Objects;

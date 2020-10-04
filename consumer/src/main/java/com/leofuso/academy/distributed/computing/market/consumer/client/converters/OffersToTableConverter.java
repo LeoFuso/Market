@@ -11,7 +11,7 @@ import org.springframework.shell.table.TableBuilder;
 import org.springframework.shell.table.TableModel;
 import org.springframework.stereotype.Component;
 import com.leofuso.academy.distributed.computing.market.consumer.commons.TableFormatter;
-import com.leofuso.academy.distributed.computing.market.consumer.offer.api.model.Offer;
+import com.leofuso.academy.distributed.computing.market.consumer.shopping.api.model.Offer;
 
 @Component
 public final class OffersToTableConverter implements Converter<List<Offer>, Table> {

@@ -8,9 +8,9 @@ import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 import org.springframework.shell.table.Table;
 import com.leofuso.academy.distributed.computing.market.consumer.commons.ShellHelper;
-import com.leofuso.academy.distributed.computing.market.consumer.offer.api.ShoppingService;
-import com.leofuso.academy.distributed.computing.market.consumer.offer.api.model.Cart;
-import com.leofuso.academy.distributed.computing.market.consumer.offer.api.model.Offer;
+import com.leofuso.academy.distributed.computing.market.consumer.shopping.api.ShoppingService;
+import com.leofuso.academy.distributed.computing.market.consumer.shopping.api.model.Cart;
+import com.leofuso.academy.distributed.computing.market.consumer.shopping.api.model.Offer;
 
 import static com.leofuso.academy.distributed.computing.market.consumer.commons.TableRenderer.render;
 
@@ -109,6 +109,20 @@ public class ShoppingCart {
             ) final Integer quantity) {
 
         final Cart cart = shoppingService.removeItem(cartId, offerId, quantity);
+        printCartInformation(cart);
+    }
+
+    @ShellMethod(
+            value = "Finish the order for a given cart",
+            key = "finish order"
+    )
+    public void finishOrder(
+            @ShellOption(
+                    value = {"-c", "--cart"},
+                    help = "The id of the cart with the items to include in the order to be finished."
+            ) final Long cartId) {
+
+        final Cart cart = shoppingService.finishOrder(cartId);
         printCartInformation(cart);
     }
 
