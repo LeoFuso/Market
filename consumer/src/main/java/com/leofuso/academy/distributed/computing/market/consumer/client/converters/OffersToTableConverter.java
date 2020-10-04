@@ -9,9 +9,6 @@ import java.util.stream.Collectors;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.NonNull;
 import org.springframework.shell.table.BeanListTableModel;
-import org.springframework.shell.table.BorderStyle;
-import org.springframework.shell.table.SimpleHorizontalAligner;
-import org.springframework.shell.table.SimpleVerticalAligner;
 import org.springframework.shell.table.Table;
 import org.springframework.shell.table.TableBuilder;
 import org.springframework.shell.table.TableModel;
@@ -20,15 +17,10 @@ import com.leofuso.academy.distributed.computing.market.consumer.commons.TableFo
 import com.leofuso.academy.distributed.computing.market.consumer.offer.api.model.Offer;
 
 @Component
-public final class OffersToTableConverter implements Converter<Set<Offer>, Table> {
+public final class OffersToTableConverter implements Converter<List<Offer>, Table> {
 
     @Override
-    public Table convert(@NonNull final Set<Offer> source) {
-
-        final List<Offer> offers =
-                source.stream()
-                        .sorted(Comparator.comparingLong(Offer::getId))
-                        .collect(Collectors.toList());
+    public Table convert(@NonNull final List<Offer> source) {
 
         //the model needs to use a linked hash map
         final LinkedHashMap<String, Object> headers = new LinkedHashMap<>(Map.of(
@@ -37,7 +29,7 @@ public final class OffersToTableConverter implements Converter<Set<Offer>, Table
                 "description", "Description",
                 "price", "Price"));
 
-        final TableModel model = new BeanListTableModel<>(offers, headers);
+        final TableModel model = new BeanListTableModel<>(source, headers);
         final TableBuilder tableBuilder = new TableBuilder(model);
 
         return TableFormatter.format(tableBuilder);

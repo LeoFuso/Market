@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Lazy;
 import com.leofuso.academy.distributed.computing.market.consumer.commons.ShellHelper;
 
 @Configuration
-public class SpringShellConfig {
+public class SpringShellConfiguration {
 
     @Bean
     public ShellHelper shellHelper(@Lazy Terminal terminal) {

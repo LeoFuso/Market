@@ -1,12 +1,12 @@
 package com.leofuso.academy.distributed.computing.market.consumer.offer.api;
 
-import java.util.Set;
+import java.util.List;
 import com.leofuso.academy.distributed.computing.market.consumer.offer.api.model.Cart;
 import com.leofuso.academy.distributed.computing.market.consumer.offer.api.model.Offer;
 
 public interface ShoppingService {
 
-    Set<Offer> listOffers();
+    List<Offer> listOffers();
 
     Cart createCart();
 

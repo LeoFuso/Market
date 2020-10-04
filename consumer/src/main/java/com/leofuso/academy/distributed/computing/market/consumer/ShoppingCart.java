@@ -1,7 +1,7 @@
 package com.leofuso.academy.distributed.computing.market.consumer;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
@@ -36,7 +36,7 @@ public class ShoppingCart {
             key = "list offers"
     )
     public void listAvailableOffers() {
-        final Set<Offer> offers = shoppingService.listOffers();
+        final List<Offer> offers = shoppingService.listOffers();
         final Table table = Objects.requireNonNull(converter.convert(offers, Table.class));
         shell.print(render(table));
     }
