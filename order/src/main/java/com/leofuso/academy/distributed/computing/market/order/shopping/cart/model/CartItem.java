@@ -27,16 +27,6 @@ public class CartItem extends AbstractMutableEntity {
     @Column(nullable = false)
     private Integer quantity;
 
-    public Long calculatePrice(final Long productPrice) {
-        return productPrice * quantity;
-    }
-
-    public Cart addToTotal(final Long entry) {
-        final Cart cart = this.getCart();
-        cart.addToTotal(entry);
-        return cart;
-    }
-
     public Cart getCart() {
         return cart;
     }
@@ -61,4 +51,7 @@ public class CartItem extends AbstractMutableEntity {
         this.quantity = quantity;
     }
 
+    public void updateQuantity(Integer quantity) {
+        this.quantity+=quantity;
+    }
 }

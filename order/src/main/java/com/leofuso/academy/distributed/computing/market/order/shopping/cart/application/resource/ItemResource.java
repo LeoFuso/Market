@@ -5,16 +5,19 @@ import java.util.Objects;
 
 import org.springframework.lang.NonNull;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.leofuso.academy.distributed.computing.market.order.offer.application.resource.OfferResource;
 
 public class ItemResource implements Serializable {
 
     private final OfferResource offer;
     private final Integer quantity;
+    private final Long subTotal;
 
-    public ItemResource(@NonNull final OfferResource offer,@NonNull final Integer quantity) {
+    public ItemResource(@NonNull final OfferResource offer, @NonNull final Integer quantity) {
         this.offer = Objects.requireNonNull(offer);
         this.quantity = Objects.requireNonNull(quantity);
+        this.subTotal = offer.getPrice() * quantity;
     }
 
     public OfferResource getOffer() {
@@ -23,5 +26,10 @@ public class ItemResource implements Serializable {
 
     public Integer getQuantity() {
         return quantity;
+    }
+
+    @JsonProperty("sub_total")
+    public Long getSubTotal() {
+        return subTotal;
     }
 }

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.leofuso.academy.distributed.computing.market.order.offer.application.resource.OfferResource;
 import com.leofuso.academy.distributed.computing.market.order.offer.model.Offer;
 import com.leofuso.academy.distributed.computing.market.order.product.stock.ProductStockService;
-import com.leofuso.academy.distributed.computing.market.order.product.stock.integration.model.ProductStock;
 import com.leofuso.academy.distributed.computing.market.order.shopping.cart.application.action.AddCartItemRequest;
 import com.leofuso.academy.distributed.computing.market.order.shopping.cart.application.resource.ItemResource;
 import com.leofuso.academy.distributed.computing.market.order.shopping.cart.model.Cart;
@@ -55,21 +54,32 @@ class ShoppingCartServiceImpl implements ShoppingCartService {
                     final Long offerId = request.getOfferId();
                     final Integer quantity = request.getQuantity();
 
-                    final Cart cartReference = cartRepository.findById(cartId)
-                                                             .orElseThrow();
+                    final Cart cart = cartRepository.findById(cartId)
+                                                    .orElseThrow();
 
-                    final CartItem item = new CartItem();
-                    item.setCart(cartReference);
-                    item.setProductReference(offerId);
-                    item.setQuantity(quantity);
+                    if (!cart.isAvailable()) {
+                        throw new RuntimeException("Cart is unavailable");
+                    }
 
-                    return cartItemRepository.save(item);
-                })
-                .flatMap(cartItem -> stockService.findOne(cartItem)
-                                                 .map(ProductStock::getPrice)
-                                                 .map(cartItem::calculatePrice)
-                                                 .map(cartItem::addToTotal))
-                .map(cartRepository::save);
+                    final CartItem item = cartItemRepository
+                            .findByCartIdAndProductReference(cartId, offerId)
+                            .map(cartItem -> {
+                                cartItem.updateQuantity(quantity);
+                                return cartItem;
+                            })
+                            .orElseGet(() -> {
+
+                                final CartItem newItem = new CartItem();
+                                newItem.setCart(cart);
+                                newItem.setProductReference(offerId);
+                                newItem.setQuantity(quantity);
+
+                                return newItem;
+                            });
+
+                    cartItemRepository.save(item);
+                    return cart;
+                });
     }
 
     @Override
