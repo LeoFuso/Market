@@ -12,7 +12,7 @@ public class CartToCartResource implements Converter<Cart, CartResource> {
 
     @Override
     public CartResource convert(@NonNull Cart source) {
-        return new CartResource(source.getId(), source.getState(), source.getTotal());
+        return new CartResource(source.getId(), source.getState());
     }
 
 }
