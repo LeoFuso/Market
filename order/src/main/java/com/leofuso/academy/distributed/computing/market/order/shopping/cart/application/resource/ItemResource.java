@@ -1,4 +1,4 @@
-package com.leofuso.academy.distributed.computing.market.order.shopping.cart.application.shopping.resource;
+package com.leofuso.academy.distributed.computing.market.order.shopping.cart.application.resource;
 
 import java.io.Serializable;
 import java.util.Objects;

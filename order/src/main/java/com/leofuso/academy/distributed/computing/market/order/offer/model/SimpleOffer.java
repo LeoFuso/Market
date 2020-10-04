@@ -1,22 +1,15 @@
-package com.leofuso.academy.distributed.computing.market.order.offer.application.resource;
+package com.leofuso.academy.distributed.computing.market.order.offer.model;
 
-import javax.validation.constraints.NotNull;
-
-import java.io.Serializable;
 import java.util.Objects;
 
-
-public class OfferResource implements Serializable {
+public class SimpleOffer implements Offer {
 
     private final Long id;
     private final String name;
     private final String description;
     private final Long price;
 
-    public OfferResource(@NotNull final Long id,
-                         @NotNull final String name,
-                         @NotNull final String description,
-                         @NotNull final Long price) {
+    public SimpleOffer(Long id, String name, String description, Long price) {
         this.id = Objects.requireNonNull(id);
         this.name = Objects.requireNonNull(name);
         this.description = Objects.requireNonNull(description);
@@ -38,5 +31,4 @@ public class OfferResource implements Serializable {
     public Long getPrice() {
         return price;
     }
-
 }

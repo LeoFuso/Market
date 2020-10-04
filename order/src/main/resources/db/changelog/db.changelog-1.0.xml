@@ -12,4 +12,83 @@
     </changeSet>
 
 
+    <changeSet id="CREATE_CART_TABLE" author="leonardo.nuzzo">
+
+        <createTable tableName="CART">
+
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+
+            <column name="CREATED_DATE" type="TIMESTAMPTZ" defaultValueComputed="${now_function}">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="LAST_MODIFIED_DATE" type="TIMESTAMPTZ" defaultValueComputed="${now_function}">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="VERSION" type="BIGINT" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="TOTAL" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="STATE" type="VARCHAR">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+
+    </changeSet>
+
+    <changeSet id="CREATE_CART_ITEM_TABLE" author="leonardo.nuzzo">
+
+        <createTable tableName="CART_ITEM">
+
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+
+            <column name="CREATED_DATE" type="TIMESTAMPTZ" defaultValueComputed="${now_function}">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="LAST_MODIFIED_DATE" type="TIMESTAMPTZ" defaultValueComputed="${now_function}">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="VERSION" type="BIGINT" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="CART_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="PRODUCT_REFERENCE" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="QUANTITY" type="int">
+                <constraints nullable="false"/>
+            </column>
+
+
+        </createTable>
+
+        <!-- Constraints and Indexes -->
+        <createIndex tableName="CART_ITEM" indexName="IDX_CART_ITEM_CART_ID">
+            <column name="CART_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint constraintName="FK_CART_ITEM_CART_ID"
+                                 baseTableName="CART_ITEM"
+                                 baseColumnNames="CART_ID"
+                                 referencedTableName="CART"
+                                 referencedColumnNames="ID"/>
+
+    </changeSet>
 </databaseChangeLog>
