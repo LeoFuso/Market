@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import java.util.Objects;
 
 import org.springframework.core.convert.ConversionService;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.leofuso.academy.distributed.computing.market.order.shopping.cart.application.action.AddCartItemRequest;
 import com.leofuso.academy.distributed.computing.market.order.shopping.cart.application.resource.CartResource;
+import com.leofuso.academy.distributed.computing.market.order.shopping.cart.application.resource.ItemResource;
 import com.leofuso.academy.distributed.computing.market.order.shopping.cart.service.ShoppingCartService;
 
 import reactor.core.publisher.Flux;
@@ -40,14 +42,24 @@ public class ShoppingCartController {
                       });
     }
 
-    @PostMapping(value = "/{id}/cart-items", consumes = "application/json", produces = "application/json")
-    public Mono<CartResource> addItem(@PathVariable Long id, @Valid @RequestBody final Mono<AddCartItemRequest> request) {
+    @PostMapping(
+            value = "/{id}/cart-items",
+            consumes = "application/json",
+            produces = "application/json"
+    )
+    public Mono<CartResource> addItem(@PathVariable Long id,
+                                      @Valid @RequestBody final Mono<AddCartItemRequest> request) {
         return service.addItem(request)
                       .map(cart -> {
                           final CartResource resource = converter.convert(cart, CartResource.class);
                           Objects.requireNonNull(resource);
                           return resource;
                       });
+    }
+
+    @GetMapping(value = "/{id}/cart-items")
+    public Flux<ItemResource> getItems(@PathVariable Long id) {
+        return service.getItems(id);
     }
 
 }
