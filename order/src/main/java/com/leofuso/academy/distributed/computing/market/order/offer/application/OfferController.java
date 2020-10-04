@@ -2,6 +2,7 @@ package com.leofuso.academy.distributed.computing.market.order.offer.application
 
 import java.util.Objects;
 
+import org.springframework.core.convert.ConversionService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,14 +17,23 @@ import reactor.core.publisher.Flux;
 public class OfferController {
 
     private final OfferService service;
+    private final ConversionService converter;
 
-    public OfferController(OfferService service) {
+    public OfferController(OfferService service, ConversionService conversionService) {
         this.service = Objects.requireNonNull(service);
+        this.converter = Objects.requireNonNull(conversionService);
     }
 
     @GetMapping
     public Flux<OfferResource> getOffers() {
-        return service.list();
+        return service.list()
+                .map(offer -> {
+
+                    final OfferResource resource = converter.convert(offer, OfferResource.class);
+                    Objects.requireNonNull(resource);
+
+                    return resource;
+                });
     }
 
 }

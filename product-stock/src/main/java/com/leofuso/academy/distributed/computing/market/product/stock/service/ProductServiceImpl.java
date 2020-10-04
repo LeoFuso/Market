@@ -2,6 +2,7 @@ package com.leofuso.academy.distributed.computing.market.product.stock.service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,11 @@ class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> list() {
         return repository.findAll();
+    }
+
+    @Override
+    public Optional<Product> findOne(Long id) {
+        return repository.findById(id);
     }
 
 }
