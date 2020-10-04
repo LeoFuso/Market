@@ -1,9 +1,9 @@
-package com.leofuso.academy.distributed.computing.market.consumer.offer.impl.webservice;
+package com.leofuso.academy.distributed.computing.market.consumer.offer.impl.webservice.resources;
 
 import java.io.Serializable;
 import java.util.Objects;
-
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class OfferResource implements Serializable {
 
@@ -13,11 +13,12 @@ public class OfferResource implements Serializable {
     private final Long price;
     private final Integer quantity;
 
-    public OfferResource(@NotNull final Long id,
-                         @NotNull final String name,
-                         @NotNull final String description,
-                         @NotNull final Long price,
-                         @NotNull Integer quantity) {
+    @JsonCreator
+    public OfferResource(@JsonProperty("id") final Long id,
+                         @JsonProperty("name") final String name,
+                         @JsonProperty("description") final String description,
+                         @JsonProperty("price") final Long price,
+                         @JsonProperty("quantity") Integer quantity) {
         this.id = Objects.requireNonNull(id);
         this.name = Objects.requireNonNull(name);
         this.description = Objects.requireNonNull(description);

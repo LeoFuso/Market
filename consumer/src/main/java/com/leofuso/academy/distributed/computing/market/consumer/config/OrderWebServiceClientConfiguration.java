@@ -23,10 +23,10 @@ public class OrderWebServiceClientConfiguration {
     private final Integer readTimeout;
     private final Integer writeTimeout;
 
-    public OrderWebServiceClientConfiguration(@Value("${order.webservice.baseUrl") final String baseUrl,
-                                              @Value("${order.webservice.connectionTimeout") final Integer connectionTimeout,
-                                              @Value("${order.webservice.readTimeout") final Integer readTimeout,
-                                              @Value("${order.webservice.writeTimeout") final Integer writeTimeout) {
+    public OrderWebServiceClientConfiguration(@Value("${order.webservice.baseUrl}") final String baseUrl,
+                                              @Value("${order.webservice.connectionTimeout}") final Integer connectionTimeout,
+                                              @Value("${order.webservice.readTimeout}") final Integer readTimeout,
+                                              @Value("${order.webservice.writeTimeout}") final Integer writeTimeout) {
         this.baseUrl = Objects.requireNonNull(baseUrl);
         this.connectionTimeout = Objects.requireNonNull(connectionTimeout);
         this.readTimeout = Objects.requireNonNull(readTimeout);

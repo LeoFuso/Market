@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
+import com.leofuso.academy.distributed.computing.market.consumer.offer.impl.webservice.resources.OfferResource;
 
 import reactor.core.publisher.Flux;
 
@@ -25,7 +26,8 @@ public class OrderWebService {
                 .get()
                 .uri("/offers")
                 .retrieve()
-                .bodyToFlux(OfferResource.class);
+                .bodyToFlux(OfferResource.class)
+                .doOnError(throwable -> LOGGER.error("Error while requesting for offers: ", throwable));
     }
 
 }

@@ -22,11 +22,11 @@ public class ShoppingCart {
     private ShellHelper shell;
 
     public ShoppingCart(final ShoppingService shoppingService,
-                        final ConversionService conversionService,
+                        final ConversionService webFluxConversionService,
                         final ShellHelper shell) {
 
         this.shoppingService = Objects.requireNonNull(shoppingService);
-        this.converter = Objects.requireNonNull(conversionService);
+        this.converter = Objects.requireNonNull(webFluxConversionService);
         this.shell = Objects.requireNonNull(shell);
     }
 
