@@ -2,10 +2,8 @@ package com.leofuso.academy.distributed.computing.market.consumer.shopping.impl.
 
 import java.io.Serializable;
 import java.util.Objects;
-import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.leofuso.academy.distributed.computing.market.consumer.shopping.api.model.Cart;
 import com.leofuso.academy.distributed.computing.market.consumer.shopping.api.model.State;
 
 public class CartResource implements Serializable {

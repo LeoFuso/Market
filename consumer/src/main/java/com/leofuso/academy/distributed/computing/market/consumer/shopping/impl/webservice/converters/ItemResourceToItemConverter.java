@@ -2,7 +2,7 @@ package com.leofuso.academy.distributed.computing.market.consumer.shopping.impl.
 
 import java.util.Objects;
 import org.springframework.core.convert.ConversionService;
-import org.springframework.core.convert.converter.Converter;
+import org.springframework.core.convert.support.ConfigurableConversionService;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import com.leofuso.academy.distributed.computing.market.consumer.shopping.api.model.Item;
@@ -14,8 +14,10 @@ public class ItemResourceToItemConverter extends AbstractConverter<ItemResource,
 
     private final ConversionService converter;
 
-    public ItemResourceToItemConverter(final ConversionService webFluxConversionService) {
-        this.converter = Objects.requireNonNull(webFluxConversionService);
+    public ItemResourceToItemConverter(final ConfigurableConversionService configurableConversionService,
+                                       final ConversionService conversionService) {
+        super(configurableConversionService);
+        this.converter = Objects.requireNonNull(conversionService);
     }
 
     @Override

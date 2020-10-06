@@ -50,7 +50,9 @@ public class OrderWebService {
 
         return webClient
                 .get()
-                .uri("/shopping-cart/{id}/cart-items")
+                .uri(builder -> builder
+                        .path("/shopping-cart/{id}/cart-items")
+                        .build(cartId))
                 .retrieve()
                 .bodyToFlux(ItemResource.class)
                 .doOnError(throwable -> LOGGER.error("Error while retrieving all items from cart: ", throwable));

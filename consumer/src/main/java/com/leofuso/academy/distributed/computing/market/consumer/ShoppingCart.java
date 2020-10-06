@@ -19,14 +19,14 @@ public class ShoppingCart {
 
     private final ShoppingService shoppingService;
     private final ConversionService converter;
-    private ShellHelper shell;
+    private final ShellHelper shell;
 
     public ShoppingCart(final ShoppingService shoppingService,
-                        final ConversionService webFluxConversionService,
+                        final ConversionService conversionService,
                         final ShellHelper shell) {
 
         this.shoppingService = Objects.requireNonNull(shoppingService);
-        this.converter = Objects.requireNonNull(webFluxConversionService);
+        this.converter = Objects.requireNonNull(conversionService);
         this.shell = Objects.requireNonNull(shell);
     }
 

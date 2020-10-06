@@ -4,11 +4,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.core.convert.ConversionService;
-import org.springframework.core.convert.converter.Converter;
+import org.springframework.core.convert.support.ConfigurableConversionService;
 import org.springframework.stereotype.Component;
-
 import com.leofuso.academy.distributed.computing.market.consumer.shopping.api.model.Cart;
 import com.leofuso.academy.distributed.computing.market.consumer.shopping.api.model.Item;
 import com.leofuso.academy.distributed.computing.market.consumer.shopping.impl.webservice.resources.CartResource;
@@ -21,7 +19,9 @@ public class CartResourceAndItemsResourceToCartConverter extends AbstractConvert
 
     private final ConversionService converter;
 
-    public CartResourceAndItemsResourceToCartConverter(final ConversionService conversionService) {
+    public CartResourceAndItemsResourceToCartConverter(final ConfigurableConversionService configurableConversionService,
+                                                       final ConversionService conversionService) {
+        super(configurableConversionService);
         this.converter = Objects.requireNonNull(conversionService);
     }
 

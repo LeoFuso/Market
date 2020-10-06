@@ -26,9 +26,9 @@ public class ShoppingServiceImpl implements ShoppingService {
     private final ConversionService converter;
 
     public ShoppingServiceImpl(final OrderWebService orderWebService,
-                               final ConversionService webFluxConversionService) {
+                               final ConversionService conversionService) {
         this.orderWebService = Objects.requireNonNull(orderWebService);
-        this.converter = Objects.requireNonNull(webFluxConversionService);
+        this.converter = Objects.requireNonNull(conversionService);
     }
 
     @Override
