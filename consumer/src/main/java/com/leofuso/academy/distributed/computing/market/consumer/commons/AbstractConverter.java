@@ -1,4 +1,4 @@
-package com.leofuso.academy.distributed.computing.market.consumer.shopping.impl.webservice.converters;
+package com.leofuso.academy.distributed.computing.market.consumer.commons;
 
 import java.util.Objects;
 import org.springframework.core.convert.converter.Converter;

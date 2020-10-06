@@ -27,6 +27,10 @@ public class Cart {
         return this.state;
     }
 
+    public boolean isEmpty () {
+        return this.getItems().isEmpty();
+    }
+
     public Long total() {
         return this.items
                 .stream()

@@ -25,4 +25,23 @@ public class Item {
     public Long getSubTotal() {
         return this.subTotal;
     }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Item)) {
+            return false;
+        }
+        final Item that = (Item) o;
+        return this.getOffer().equals(that.getOffer()) &&
+                this.getQuantity().equals(that.getQuantity()) &&
+                this.getSubTotal().equals(that.getSubTotal());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getOffer(), this.getQuantity(), this.getSubTotal());
+    }
 }

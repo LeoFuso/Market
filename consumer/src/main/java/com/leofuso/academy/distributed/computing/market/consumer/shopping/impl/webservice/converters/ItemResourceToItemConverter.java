@@ -5,6 +5,7 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.support.ConfigurableConversionService;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
+import com.leofuso.academy.distributed.computing.market.consumer.commons.AbstractConverter;
 import com.leofuso.academy.distributed.computing.market.consumer.shopping.api.model.Item;
 import com.leofuso.academy.distributed.computing.market.consumer.shopping.api.model.Offer;
 import com.leofuso.academy.distributed.computing.market.consumer.shopping.impl.webservice.resources.ItemResource;

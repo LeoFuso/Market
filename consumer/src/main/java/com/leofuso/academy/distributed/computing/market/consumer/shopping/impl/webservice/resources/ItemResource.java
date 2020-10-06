@@ -14,7 +14,7 @@ public class ItemResource implements Serializable {
     @JsonCreator
     public ItemResource(@JsonProperty("offer") final OfferResource offer,
                         @JsonProperty("quantity") final Integer quantity,
-                        @JsonProperty("subTotal") final Long subTotal) {
+                        @JsonProperty("sub_total") final Long subTotal) {
         this.offer = Objects.requireNonNull(offer);
         this.quantity = Objects.requireNonNull(quantity);
         this.subTotal = Objects.requireNonNull(subTotal);

@@ -2,6 +2,7 @@ package com.leofuso.academy.distributed.computing.market.consumer;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
@@ -10,6 +11,7 @@ import org.springframework.shell.table.Table;
 import com.leofuso.academy.distributed.computing.market.consumer.commons.ShellHelper;
 import com.leofuso.academy.distributed.computing.market.consumer.shopping.api.ShoppingService;
 import com.leofuso.academy.distributed.computing.market.consumer.shopping.api.model.Cart;
+import com.leofuso.academy.distributed.computing.market.consumer.shopping.api.model.Item;
 import com.leofuso.academy.distributed.computing.market.consumer.shopping.api.model.Offer;
 
 import static com.leofuso.academy.distributed.computing.market.consumer.commons.TableRenderer.render;
@@ -61,7 +63,7 @@ public class ShoppingCart {
             ) final Long cartId) {
 
         final Cart cart = this.shoppingService.retrieveCart(cartId);
-        printCartInformation(cart);
+        this.printCartInformation(cart);
     }
 
     @ShellMethod(
@@ -85,7 +87,7 @@ public class ShoppingCart {
             ) final Integer quantity) {
 
         final Cart cart = this.shoppingService.addItem(cartId, offerId, quantity);
-        printCartInformation(cart);
+        this.printCartInformation(cart);
     }
 
     @ShellMethod(
@@ -109,7 +111,7 @@ public class ShoppingCart {
             ) final Integer quantity) {
 
         final Cart cart = this.shoppingService.removeItem(cartId, offerId, quantity);
-        printCartInformation(cart);
+        this.printCartInformation(cart);
     }
 
     @ShellMethod(
@@ -123,11 +125,20 @@ public class ShoppingCart {
             ) final Long cartId) {
 
         final Cart cart = this.shoppingService.finishOrder(cartId);
-        printCartInformation(cart);
+        this.printCartInformation(cart);
     }
 
     private void printCartInformation (final Cart cart) {
-        //TODO this
-        throw new UnsupportedOperationException("to be implemented");
+
+        if (cart.isEmpty()) {
+            this.shell.print("Cart is empty, no items were added to it.");
+        } else {
+            final Set<Item> items = cart.getItems();
+            final Table table = Objects.requireNonNull(this.converter.convert(items, Table.class));
+            this.shell.print(render(table));
+        }
+
+        this.shell.print(String.format("Cart id: %d", cart.getId()));
+        this.shell.print(String.format("Cart state: %s", cart.getState()));
     }
 }

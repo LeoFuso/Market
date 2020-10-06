@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.support.ConfigurableConversionService;
 import org.springframework.stereotype.Component;
+import com.leofuso.academy.distributed.computing.market.consumer.commons.AbstractConverter;
 import com.leofuso.academy.distributed.computing.market.consumer.shopping.api.model.Cart;
 import com.leofuso.academy.distributed.computing.market.consumer.shopping.api.model.Item;
 import com.leofuso.academy.distributed.computing.market.consumer.shopping.impl.webservice.resources.CartResource;
@@ -15,7 +16,8 @@ import com.leofuso.academy.distributed.computing.market.consumer.shopping.impl.w
 import reactor.util.function.Tuple2;
 
 @Component
-public class CartResourceAndItemsResourceToCartConverter extends AbstractConverter<Tuple2<CartResource, List<ItemResource>>, Cart> {
+public class CartResourceAndItemsResourceToCartConverter extends
+        AbstractConverter<Tuple2<CartResource, List<ItemResource>>, Cart> {
 
     private final ConversionService converter;
 
