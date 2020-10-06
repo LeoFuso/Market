@@ -10,7 +10,7 @@ import com.leofuso.academy.distributed.computing.market.consumer.shopping.api.mo
 import com.leofuso.academy.distributed.computing.market.consumer.shopping.impl.webservice.resources.ItemResource;
 
 @Component
-public class ItemResourceToItemConverter implements Converter<ItemResource, Item> {
+public class ItemResourceToItemConverter extends AbstractConverter<ItemResource, Item> {
 
     private final ConversionService converter;
 
@@ -21,6 +21,6 @@ public class ItemResourceToItemConverter implements Converter<ItemResource, Item
     @Override
     public Item convert(@NonNull final ItemResource source) {
         final Offer offer = converter.convert(source.getOffer(), Offer.class);
-        return new Item(offer, source.getQuantity());
+        return new Item(offer, source.getQuantity(), source.getSubTotal());
     }
 }

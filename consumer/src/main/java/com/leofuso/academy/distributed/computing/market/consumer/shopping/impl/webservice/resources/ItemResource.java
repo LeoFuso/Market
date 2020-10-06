@@ -9,12 +9,15 @@ public class ItemResource implements Serializable {
 
     private final OfferResource offer;
     private final Integer quantity;
+    private final Long subTotal;
 
     @JsonCreator
     public ItemResource(@JsonProperty("offer") final OfferResource offer,
-                        @JsonProperty("quantity") final Integer quantity) {
+                        @JsonProperty("quantity") final Integer quantity,
+                        @JsonProperty("subTotal") final Long subTotal) {
         this.offer = Objects.requireNonNull(offer);
         this.quantity = Objects.requireNonNull(quantity);
+        this.subTotal = Objects.requireNonNull(subTotal);
     }
 
     public OfferResource getOffer() {
@@ -23,5 +26,9 @@ public class ItemResource implements Serializable {
 
     public Integer getQuantity() {
         return quantity;
+    }
+
+    public Long getSubTotal() {
+        return subTotal;
     }
 }

@@ -1,5 +1,6 @@
 package com.leofuso.academy.distributed.computing.market.consumer.shopping.impl;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -10,6 +11,13 @@ import com.leofuso.academy.distributed.computing.market.consumer.shopping.api.Sh
 import com.leofuso.academy.distributed.computing.market.consumer.shopping.api.model.Cart;
 import com.leofuso.academy.distributed.computing.market.consumer.shopping.api.model.Offer;
 import com.leofuso.academy.distributed.computing.market.consumer.shopping.impl.webservice.OrderWebService;
+import com.leofuso.academy.distributed.computing.market.consumer.shopping.impl.webservice.resources.CartResource;
+import com.leofuso.academy.distributed.computing.market.consumer.shopping.impl.webservice.resources.ItemResource;
+
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+import reactor.util.function.Tuple2;
+import reactor.util.function.Tuples;
 
 @Service
 public class ShoppingServiceImpl implements ShoppingService {
@@ -39,43 +47,42 @@ public class ShoppingServiceImpl implements ShoppingService {
 
         return orderWebService
                 .createCart()
-                .map(resource -> converter.convert(resource, Cart.class))
+                .map(resource -> {
+                    final Tuple2<CartResource, List<ItemResource>> pair = Tuples.of(resource, Collections.emptyList());
+                    return Objects.requireNonNull(converter.convert(pair, Cart.class));
+                })
                 .block();
     }
 
     @Override
     public Cart retrieveCart(final Long cartId) {
-
-        return orderWebService
-                .retrieveCart(cartId)
-                .map(resource -> converter.convert(resource, Cart.class))
-                .block();
+        final Mono<CartResource> retrievingCartProducer = orderWebService.retrieveCart(cartId);
+        return fullCartUsing(retrievingCartProducer, cartId);
     }
 
     @Override
     public Cart addItem(final Long cartId, final Long offerId, final Integer quantity) {
-
-        return orderWebService
-                .addItem(cartId, offerId, quantity)
-                .map(resource -> converter.convert(resource, Cart.class))
-                .block();
+        final Mono<CartResource> addingCartProducer = orderWebService.addItem(cartId, offerId, quantity);
+        return fullCartUsing(addingCartProducer, cartId);
     }
 
     @Override
     public Cart removeItem(final Long cartId, final Long offerId, final Integer quantity) {
-
-        return orderWebService
-                .removeItems(cartId, offerId, quantity)
-                .map(resource -> converter.convert(resource, Cart.class))
-                .block();
+        final Mono<CartResource> removingCartProducer = orderWebService.removeItems(cartId, offerId, quantity);
+        return fullCartUsing(removingCartProducer, cartId);
     }
 
     @Override
     public Cart finishOrder(final Long cartId) {
+        final Mono<CartResource> finishingOrderCartProducer = orderWebService.finishOrder(cartId);
+        return fullCartUsing(finishingOrderCartProducer, cartId);
+    }
 
-        return orderWebService
-                .finishOrder(cartId)
-                .map(resource -> converter.convert(resource, Cart.class))
+    private Cart fullCartUsing(final Mono<CartResource> cartResourceProducer, final Long cartId) {
+
+        final Flux<ItemResource> retrievingItemsProducer = orderWebService.itemsFromCart(cartId);
+        return Mono.zip(cartResourceProducer, retrievingItemsProducer.collectList())
+                .map(pair -> Objects.requireNonNull(converter.convert(pair, Cart.class)))
                 .block();
     }
 }

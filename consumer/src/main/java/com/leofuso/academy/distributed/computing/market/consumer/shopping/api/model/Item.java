@@ -6,10 +6,12 @@ public class Item {
 
     private final Offer offer;
     private final Integer quantity;
+    private final Long subTotal;
 
-    public Item(Offer offer, Integer quantity) {
+    public Item(final Offer offer, final Integer quantity, final Long subTotal) {
         this.offer = Objects.requireNonNull(offer);
         this.quantity = Objects.requireNonNull(quantity);
+        this.subTotal = Objects.requireNonNull(subTotal);
     }
 
     public Offer getOffer() {
@@ -18,5 +20,9 @@ public class Item {
 
     public Integer getQuantity() {
         return quantity;
+    }
+
+    public Long getSubTotal() {
+        return subTotal;
     }
 }

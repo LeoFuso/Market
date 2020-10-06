@@ -7,7 +7,7 @@ import com.leofuso.academy.distributed.computing.market.consumer.shopping.api.mo
 import com.leofuso.academy.distributed.computing.market.consumer.shopping.impl.webservice.resources.OfferResource;
 
 @Component
-public class OfferResourceToOfferConverter implements Converter<OfferResource, Offer> {
+public class OfferResourceToOfferConverter extends AbstractConverter<OfferResource, Offer> {
 
     @Override
     public Offer convert(@NonNull final OfferResource source) {

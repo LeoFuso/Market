@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import com.leofuso.academy.distributed.computing.market.consumer.shopping.impl.webservice.resources.CartResource;
 import com.leofuso.academy.distributed.computing.market.consumer.shopping.impl.webservice.resources.ItemOperation;
+import com.leofuso.academy.distributed.computing.market.consumer.shopping.impl.webservice.resources.ItemResource;
 import com.leofuso.academy.distributed.computing.market.consumer.shopping.impl.webservice.resources.OfferResource;
 
 import reactor.core.publisher.Flux;
@@ -45,6 +46,16 @@ public class OrderWebService {
                 .doOnError(throwable -> LOGGER.error("Error while requesting the creation of a new cart: ", throwable));
     }
 
+    public Flux<ItemResource> itemsFromCart(final Long cartId) {
+
+        return webClient
+                .get()
+                .uri("/shopping-cart/{id}/cart-items")
+                .retrieve()
+                .bodyToFlux(ItemResource.class)
+                .doOnError(throwable -> LOGGER.error("Error while retrieving all items from cart: ", throwable));
+    }
+
     public Mono<CartResource> retrieveCart (final Long cartId) {
 
         return webClient
@@ -59,14 +70,14 @@ public class OrderWebService {
 
     public Mono<CartResource> addItem (final Long cartId, final Long offerId, final Integer quantity) {
 
-        final ItemOperation operation = new ItemOperation(offerId, quantity);
+        final Mono<ItemOperation> operation = Mono.just(new ItemOperation(cartId, offerId, quantity));
 
         return webClient
-                .put()
+                .post()
                 .uri(builder -> builder
-                        .path("/shopping-cart/{id}/items")
+                        .path("/shopping-cart/{id}/cart-items")
                         .build(cartId))
-                .body(Mono.just(operation), ItemOperation.class)
+                .body(operation, ItemOperation.class)
                 .retrieve()
                 .bodyToMono(CartResource.class)
                 .doOnError(throwable -> LOGGER.error("Error while requesting the adding of items to cart: ", throwable));
@@ -74,14 +85,14 @@ public class OrderWebService {
 
     public Mono<CartResource> removeItems (final Long cartId, final Long offerId, final Integer quantity) {
 
-        final ItemOperation operation = new ItemOperation(offerId, quantity);
+        final Mono<ItemOperation> operation = Mono.just(new ItemOperation(cartId, offerId, quantity));
 
         return webClient
                 .method(HttpMethod.DELETE)
                 .uri(builder -> builder
                         .path("/shopping-cart/{id}/items")
                         .build(cartId))
-                .body(Mono.just(operation), ItemOperation.class)
+                .body(operation, ItemOperation.class)
                 .retrieve()
                 .bodyToMono(CartResource.class)
                 .doOnError(throwable -> LOGGER.error("Error while requesting the removal of items from cart: ", throwable));
