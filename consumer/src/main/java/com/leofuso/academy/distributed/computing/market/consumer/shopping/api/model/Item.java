@@ -15,14 +15,14 @@ public class Item {
     }
 
     public Offer getOffer() {
-        return offer;
+        return this.offer;
     }
 
     public Integer getQuantity() {
-        return quantity;
+        return this.quantity;
     }
 
     public Long getSubTotal() {
-        return subTotal;
+        return this.subTotal;
     }
 }

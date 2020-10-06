@@ -80,8 +80,12 @@ public class ShoppingServiceImpl implements ShoppingService {
 
     private Cart fullCartUsing(final Mono<CartResource> cartResourceProducer, final Long cartId) {
 
-        final Flux<ItemResource> retrievingItemsProducer = orderWebService.itemsFromCart(cartId);
-        return Mono.zip(cartResourceProducer, retrievingItemsProducer.collectList())
+        final Mono<List<ItemResource>> retrievingItemsProducer =
+                orderWebService
+                        .itemsFromCart(cartId)
+                        .collectList();
+
+        return Mono.zip(cartResourceProducer, retrievingItemsProducer)
                 .map(pair -> Objects.requireNonNull(converter.convert(pair, Cart.class)))
                 .block();
     }

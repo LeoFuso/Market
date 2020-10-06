@@ -10,7 +10,7 @@ import com.leofuso.academy.distributed.computing.market.consumer.commons.ShellHe
 public class SpringShellConfiguration {
 
     @Bean
-    public ShellHelper shellHelper(@Lazy Terminal terminal) {
+    public ShellHelper shellHelper(@Lazy final Terminal terminal) {
         return new ShellHelper(terminal);
     }
 

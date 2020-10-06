@@ -9,7 +9,7 @@ public class Offer {
     private final String description;
     private final Long price;
 
-    public Offer(Long id, String name, String description, Long price) {
+    public Offer(final Long id, final String name, final String description, final Long price) {
         this.id = Objects.requireNonNull(id);
         this.name = Objects.requireNonNull(name);
         this.description = Objects.requireNonNull(description);
@@ -17,30 +17,32 @@ public class Offer {
     }
 
     public Long getId() {
-        return id;
+        return this.id;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     public Long getPrice() {
-        return price;
+        return this.price;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
 
-        if (this == o)
+        if (this == o) {
             return true;
-        if (!(o instanceof Offer))
+        }
+        if (!(o instanceof Offer)) {
             return false;
+        }
 
-        Offer that = (Offer) o;
+        final Offer that = (Offer) o;
         return this.getId().equals(that.getId()) &&
                 this.getName().equals(that.getName()) &&
                 this.getDescription().equals(that.getDescription()) &&

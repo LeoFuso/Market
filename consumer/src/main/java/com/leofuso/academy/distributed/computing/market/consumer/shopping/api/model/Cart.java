@@ -16,19 +16,19 @@ public class Cart {
     }
 
     public Long getId() {
-        return id;
+        return this.id;
     }
 
     public Set<Item> getItems() {
-        return items;
+        return this.items;
     }
 
     public State getState() {
-        return state;
+        return this.state;
     }
 
     public Long total() {
-        return items
+        return this.items
                 .stream()
                 .map(Item::getSubTotal)
                 .reduce(Long::sum)

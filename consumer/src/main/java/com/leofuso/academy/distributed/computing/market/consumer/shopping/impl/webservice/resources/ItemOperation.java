@@ -19,14 +19,14 @@ public class ItemOperation implements Serializable {
     }
 
     public Long getCartId() {
-        return cartId;
+        return this.cartId;
     }
 
     public Long getOfferId() {
-        return offerId;
+        return this.offerId;
     }
 
     public Integer getQuantity() {
-        return quantity;
+        return this.quantity;
     }
 }

@@ -26,14 +26,14 @@ public class CartResourceAndItemsResourceToCartConverter extends AbstractConvert
     }
 
     @Override
-    public Cart convert(Tuple2<CartResource, List<ItemResource>> source) {
+    public Cart convert(final Tuple2<CartResource, List<ItemResource>> source) {
 
         final CartResource cartResource = source.getT1();
         final List<ItemResource> itemsResource = source.getT2();
 
         final Set<Item> items = itemsResource
                         .stream()
-                        .map(r -> converter.convert(r, Item.class))
+                        .map(r -> this.converter.convert(r, Item.class))
                         .collect(Collectors.toSet());
 
         return new Cart(

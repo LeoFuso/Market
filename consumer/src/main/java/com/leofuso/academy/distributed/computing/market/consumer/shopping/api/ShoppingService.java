@@ -10,12 +10,12 @@ public interface ShoppingService {
 
     Cart createCart();
 
-    Cart retrieveCart (final Long cartId);
+    Cart retrieveCart (Long cartId);
 
-    Cart addItem (final Long cartId, final Long offerId, final Integer quantityToAdd);
+    Cart addItem (Long cartId, Long offerId, Integer quantityToAdd);
 
-    Cart removeItem (final Long cartId, final Long offerId, final Integer quantityToRemove);
+    Cart removeItem (Long cartId, Long offerId, Integer quantityToRemove);
 
-    Cart finishOrder (final Long cartId);
+    Cart finishOrder (Long cartId);
 
 }

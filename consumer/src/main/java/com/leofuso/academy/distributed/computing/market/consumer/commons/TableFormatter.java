@@ -8,7 +8,7 @@ import org.springframework.shell.table.TableBuilder;
 
 public class TableFormatter {
 
-    public static Table format(TableBuilder tableBuilder) {
+    public static Table format(final TableBuilder tableBuilder) {
 
         return tableBuilder.on((row, column, m) -> true)
                 .addAligner(SimpleVerticalAligner.middle)

@@ -22,7 +22,7 @@ public class ItemResourceToItemConverter extends AbstractConverter<ItemResource,
 
     @Override
     public Item convert(@NonNull final ItemResource source) {
-        final Offer offer = converter.convert(source.getOffer(), Offer.class);
+        final Offer offer = this.converter.convert(source.getOffer(), Offer.class);
         return new Item(offer, source.getQuantity(), source.getSubTotal());
     }
 }

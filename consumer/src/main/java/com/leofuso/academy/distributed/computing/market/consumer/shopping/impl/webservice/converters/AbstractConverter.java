@@ -16,10 +16,10 @@ public abstract class AbstractConverter<S, T> implements Converter<S, T> {
 
     @PostConstruct
     private void postConstruct() {
-        conversionService.addConverter(this);
+        this.conversionService.addConverter(this);
     }
 
     protected final <C> C convert(final Object source, final Class<C> clazz) {
-        return conversionService.convert(source, clazz);
+        return this.conversionService.convert(source, clazz);
     }
 }

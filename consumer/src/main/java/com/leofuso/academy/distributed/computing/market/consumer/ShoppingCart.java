@@ -36,9 +36,9 @@ public class ShoppingCart {
             key = "list offers"
     )
     public void listAvailableOffers() {
-        final List<Offer> offers = shoppingService.listOffers();
-        final Table table = Objects.requireNonNull(converter.convert(offers, Table.class));
-        shell.print(render(table));
+        final List<Offer> offers = this.shoppingService.listOffers();
+        final Table table = Objects.requireNonNull(this.converter.convert(offers, Table.class));
+        this.shell.print(render(table));
     }
 
     @ShellMethod(
@@ -46,8 +46,8 @@ public class ShoppingCart {
             key = "create cart"
     )
     public void createCart() {
-        final Cart cart = shoppingService.createCart();
-        shell.print(String.format("New cart created with id: %d", cart.getId()));
+        final Cart cart = this.shoppingService.createCart();
+        this.shell.print(String.format("New cart created with id: %d", cart.getId()));
     }
 
     @ShellMethod(
@@ -60,7 +60,7 @@ public class ShoppingCart {
                     help = "The id of the cart to be retrieved."
             ) final Long cartId) {
 
-        final Cart cart = shoppingService.retrieveCart(cartId);
+        final Cart cart = this.shoppingService.retrieveCart(cartId);
         printCartInformation(cart);
     }
 
@@ -84,7 +84,7 @@ public class ShoppingCart {
                     help = "The quantity of items to be added to the cart"
             ) final Integer quantity) {
 
-        final Cart cart = shoppingService.addItem(cartId, offerId, quantity);
+        final Cart cart = this.shoppingService.addItem(cartId, offerId, quantity);
         printCartInformation(cart);
     }
 
@@ -108,7 +108,7 @@ public class ShoppingCart {
                     help = "The quantity of items to be added to the cart"
             ) final Integer quantity) {
 
-        final Cart cart = shoppingService.removeItem(cartId, offerId, quantity);
+        final Cart cart = this.shoppingService.removeItem(cartId, offerId, quantity);
         printCartInformation(cart);
     }
 
@@ -122,7 +122,7 @@ public class ShoppingCart {
                     help = "The id of the cart with the items to include in the order to be finished."
             ) final Long cartId) {
 
-        final Cart cart = shoppingService.finishOrder(cartId);
+        final Cart cart = this.shoppingService.finishOrder(cartId);
         printCartInformation(cart);
     }
 

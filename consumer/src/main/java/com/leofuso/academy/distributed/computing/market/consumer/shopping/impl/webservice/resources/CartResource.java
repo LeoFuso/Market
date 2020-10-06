@@ -19,10 +19,10 @@ public class CartResource implements Serializable {
     }
 
     public Long getId() {
-        return id;
+        return this.id;
     }
 
     public State getState() {
-        return state;
+        return this.state;
     }
 }

@@ -22,13 +22,13 @@ public class OrderWebService {
 
     private final WebClient webClient;
 
-    public OrderWebService(@Qualifier("orderWebClient") WebClient webClient) {
+    public OrderWebService(@Qualifier("orderWebClient") final WebClient webClient) {
         this.webClient = Objects.requireNonNull(webClient);
     }
 
     public Flux<OfferResource> retrieveOffers () {
 
-        return webClient
+        return this.webClient
                 .get()
                 .uri("/offers")
                 .retrieve()
@@ -38,7 +38,7 @@ public class OrderWebService {
 
     public Mono<CartResource> createCart () {
 
-        return webClient
+        return this.webClient
                 .post()
                 .uri("/shopping-cart")
                 .retrieve()
@@ -48,7 +48,7 @@ public class OrderWebService {
 
     public Flux<ItemResource> itemsFromCart(final Long cartId) {
 
-        return webClient
+        return this.webClient
                 .get()
                 .uri(builder -> builder
                         .path("/shopping-cart/{id}/cart-items")
@@ -60,7 +60,7 @@ public class OrderWebService {
 
     public Mono<CartResource> retrieveCart (final Long cartId) {
 
-        return webClient
+        return this.webClient
                 .get()
                 .uri(builder -> builder
                         .path("/shopping-cart/{id}")
@@ -74,7 +74,7 @@ public class OrderWebService {
 
         final Mono<ItemOperation> operation = Mono.just(new ItemOperation(cartId, offerId, quantity));
 
-        return webClient
+        return this.webClient
                 .post()
                 .uri(builder -> builder
                         .path("/shopping-cart/{id}/cart-items")
@@ -89,7 +89,7 @@ public class OrderWebService {
 
         final Mono<ItemOperation> operation = Mono.just(new ItemOperation(cartId, offerId, quantity));
 
-        return webClient
+        return this.webClient
                 .method(HttpMethod.DELETE)
                 .uri(builder -> builder
                         .path("/shopping-cart/{id}/items")
@@ -102,7 +102,7 @@ public class OrderWebService {
 
     public Mono<CartResource> finishOrder (final Long cartId) {
 
-        return webClient
+        return this.webClient
                 .post()
                 .uri(builder -> builder
                         .path("/shopping-cart/order/{id}")

@@ -4,14 +4,14 @@ import org.jline.terminal.Terminal;
 
 public class ShellHelper {
 
-    private Terminal terminal;
+    private final Terminal terminal;
 
-    public ShellHelper(Terminal terminal) {
+    public ShellHelper(final Terminal terminal) {
         this.terminal = terminal;
     }
 
-    public void print(String message) {
-        terminal.writer().println(message);
-        terminal.flush();
+    public void print(final String message) {
+        this.terminal.writer().println(message);
+        this.terminal.flush();
     }
 }

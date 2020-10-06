@@ -21,14 +21,14 @@ public class ItemResource implements Serializable {
     }
 
     public OfferResource getOffer() {
-        return offer;
+        return this.offer;
     }
 
     public Integer getQuantity() {
-        return quantity;
+        return this.quantity;
     }
 
     public Long getSubTotal() {
-        return subTotal;
+        return this.subTotal;
     }
 }

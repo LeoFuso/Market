@@ -39,16 +39,16 @@ public class OrderWebServiceClientConfiguration {
         final HttpClient httpClient = HttpClient
                 .create()
                 .tcpConfiguration(tcpClient ->
-                        tcpClient.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, connectionTimeout)
+                        tcpClient.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, this.connectionTimeout)
                                 .doOnConnected(conn -> conn
-                                        .addHandlerLast(new ReadTimeoutHandler(readTimeout, TimeUnit.MILLISECONDS))
-                                        .addHandlerLast(new WriteTimeoutHandler(writeTimeout, TimeUnit.MILLISECONDS))));
+                                        .addHandlerLast(new ReadTimeoutHandler(this.readTimeout, TimeUnit.MILLISECONDS))
+                                        .addHandlerLast(new WriteTimeoutHandler(this.writeTimeout, TimeUnit.MILLISECONDS))));
 
         final ReactorClientHttpConnector connector = new ReactorClientHttpConnector(httpClient);
 
         return WebClient
                 .builder()
-                .baseUrl(baseUrl)
+                .baseUrl(this.baseUrl)
                 .clientConnector(connector)
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();

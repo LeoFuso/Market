@@ -24,18 +24,18 @@ public class OfferResource implements Serializable {
     }
 
     public Long getId() {
-        return id;
+        return this.id;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     public Long getPrice() {
-        return price;
+        return this.price;
     }
 }
