@@ -45,6 +45,12 @@ class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
+    public Mono<Cart> retrieve(Long id) {
+        final Cart cart = cartRepository.findById(id).orElseThrow();
+        return Mono.just(cart);
+    }
+
+    @Override
     @Transactional
     public Mono<Cart> addItem(Mono<AddCartItemRequest> requestFlow) {
         return requestFlow
@@ -92,20 +98,11 @@ class ShoppingCartServiceImpl implements ShoppingCartService {
                                .findOne(productReference)
                                .map(product -> {
 
-                                   final Offer offer = converter.convert(product, Offer.class);
-                                   Objects.requireNonNull(offer);
+                                   final Offer offer = Objects.requireNonNull(converter.convert(product, Offer.class));
+                                   final OfferResource resource = Objects.requireNonNull(converter.convert(offer, OfferResource.class));
 
-                                   return offer;
-                               })
-                               .map(offer -> {
-
-                                   final OfferResource resource = converter.convert(offer, OfferResource.class);
-                                   Objects.requireNonNull(resource);
-                                   return resource;
-
-                               })
-                               .map(resource -> new ItemResource(resource, cartItem.getQuantity()));
-
+                                   return new ItemResource(resource, cartItem.getQuantity());
+                               });
                    })
                    .flatMap(Mono::flux);
     }

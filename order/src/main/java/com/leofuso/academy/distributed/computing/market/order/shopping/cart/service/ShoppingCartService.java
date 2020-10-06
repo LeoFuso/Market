@@ -11,6 +11,8 @@ public interface ShoppingCartService {
 
     Mono<Cart> create();
 
+    Mono<Cart> retrieve(Long id);
+
     Mono<Cart> addItem(Mono<AddCartItemRequest> request);
 
     Flux<ItemResource> getItems(Long id);

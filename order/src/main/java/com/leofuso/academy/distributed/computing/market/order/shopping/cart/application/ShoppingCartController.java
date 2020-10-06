@@ -42,6 +42,16 @@ public class ShoppingCartController {
                       });
     }
 
+    @GetMapping(value = "/{id}", produces = "application/json")
+    public Mono<CartResource> retrieve(@PathVariable Long id) {
+        return service.retrieve(id)
+                .map(cart -> {
+                    final CartResource resource = converter.convert(cart, CartResource.class);
+                    Objects.requireNonNull(resource);
+                    return resource;
+                });
+    }
+
     @PostMapping(
             value = "/{id}/cart-items",
             consumes = "application/json",
