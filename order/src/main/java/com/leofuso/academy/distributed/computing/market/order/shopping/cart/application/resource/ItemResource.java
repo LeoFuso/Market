@@ -14,10 +14,10 @@ public class ItemResource implements Serializable {
     private final Integer quantity;
     private final Long subTotal;
 
-    public ItemResource(@NonNull final OfferResource offer, @NonNull final Integer quantity) {
+    public ItemResource(@NonNull final OfferResource offer, @NonNull Integer quantity, @NonNull final Long subTotal) {
         this.offer = Objects.requireNonNull(offer);
         this.quantity = Objects.requireNonNull(quantity);
-        this.subTotal = offer.getPrice() * quantity;
+        this.subTotal = subTotal;
     }
 
     public OfferResource getOffer() {

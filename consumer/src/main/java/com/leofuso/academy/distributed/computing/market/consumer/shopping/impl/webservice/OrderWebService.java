@@ -101,11 +101,10 @@ public class OrderWebService {
     }
 
     public Mono<CartResource> finishOrder (final Long cartId) {
-
         return this.webClient
-                .post()
+                .put()
                 .uri(builder -> builder
-                        .path("/shopping-cart/order/{id}")
+                        .path("/shopping-cart/{id}/order")
                         .build(cartId))
                 .retrieve()
                 .bodyToMono(CartResource.class)

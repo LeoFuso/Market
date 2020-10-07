@@ -1,5 +1,7 @@
 package com.leofuso.academy.distributed.computing.market.product.stock.application;
 
+import javax.validation.Valid;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -7,11 +9,14 @@ import java.util.stream.Collectors;
 
 import org.springframework.core.convert.ConversionService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.leofuso.academy.distributed.computing.market.product.stock.application.action.RemoveStockProductRequest;
 import com.leofuso.academy.distributed.computing.market.product.stock.application.resource.ProductResource;
 import com.leofuso.academy.distributed.computing.market.product.stock.domain.Product;
 import com.leofuso.academy.distributed.computing.market.product.stock.service.ProductService;
@@ -32,16 +37,15 @@ public class ProductController {
     public ResponseEntity<List<ProductResource>> getProducts() {
 
         final List<Product> products = service.list();
-        final List<ProductResource> resources = products.stream()
-                                                        .map(product -> converter.convert(
-                                                                product,
-                                                                ProductResource.class))
-                                                        .collect(Collectors.toList());
+        final List<ProductResource> resources =
+                products.stream()
+                        .map(product -> converter.convert(product, ProductResource.class))
+                        .collect(Collectors.toList());
 
         return ResponseEntity.ok(resources);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(path = "/{id}", produces = "application/json")
     public ResponseEntity<ProductResource> getOneProduct(@PathVariable Long id) {
         final Optional<ProductResource> resource =
                 service.findOne(id)
@@ -50,6 +54,13 @@ public class ProductController {
         return resource.map(ResponseEntity::ok)
                        .orElseGet(() -> ResponseEntity.notFound()
                                                       .build());
+    }
+
+    @DeleteMapping(path = "/batch",  consumes = "application/json")
+    public ResponseEntity<Void> removeByBatch(@Valid @RequestBody RemoveStockProductRequest request) {
+        service.process(request);
+        return ResponseEntity.accepted()
+                             .build();
     }
 
 }

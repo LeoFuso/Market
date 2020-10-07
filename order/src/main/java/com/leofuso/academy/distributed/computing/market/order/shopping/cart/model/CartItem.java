@@ -2,7 +2,6 @@ package com.leofuso.academy.distributed.computing.market.order.shopping.cart.mod
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
@@ -26,6 +25,22 @@ public class CartItem extends AbstractMutableEntity {
     @Positive
     @Column(nullable = false)
     private Integer quantity;
+
+    public static CartItem ofEmpty() {
+        return new CartItem();
+    }
+
+    public Boolean isEmpty() {
+        return cart == null || productReference == null || quantity == null;
+    }
+
+    public Long getSubTotal(Long unityPrice) {
+        return calculateSubTotal(quantity, unityPrice);
+    }
+
+    public Long calculateSubTotal(Integer quantity, Long unityPrice) {
+        return quantity * unityPrice;
+    }
 
     public Cart getCart() {
         return cart;
@@ -52,6 +67,14 @@ public class CartItem extends AbstractMutableEntity {
     }
 
     public void updateQuantity(Integer quantity) {
-        this.quantity+=quantity;
+        if (this.quantity == null) {
+            this.quantity = 0;
+        }
+
+        if(this.quantity + quantity < 0) {
+            throw new RuntimeException("Illegal quantity.");
+        }
+
+        this.quantity += quantity;
     }
 }

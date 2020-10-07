@@ -9,10 +9,12 @@ public class CartResource implements Serializable {
 
     private final Long id;
     private final State state;
+    private final Long total;
 
-    public CartResource(final Long id, final State state) {
+    public CartResource(final Long id, final State state, final Long total) {
         this.id = Objects.requireNonNull(id);
         this.state = Objects.requireNonNull(state);
+        this.total = Objects.requireNonNull(total);
     }
 
     public Long getId() {
@@ -21,5 +23,9 @@ public class CartResource implements Serializable {
 
     public State getState() {
         return state;
+    }
+
+    public Long getTotal() {
+        return total;
     }
 }
