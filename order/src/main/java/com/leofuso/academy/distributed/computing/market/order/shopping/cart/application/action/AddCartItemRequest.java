@@ -9,7 +9,7 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class AddCartItemRequest implements Serializable {
+public class AddCartItemRequest implements Serializable, CartItemRequest {
 
     @NotNull
     @Positive

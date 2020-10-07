@@ -92,7 +92,7 @@ public class OrderWebService {
         return this.webClient
                 .method(HttpMethod.DELETE)
                 .uri(builder -> builder
-                        .path("/shopping-cart/{id}/items")
+                        .path("/shopping-cart/{id}/cart-items")
                         .build(cartId))
                 .body(operation, ItemOperation.class)
                 .retrieve()
