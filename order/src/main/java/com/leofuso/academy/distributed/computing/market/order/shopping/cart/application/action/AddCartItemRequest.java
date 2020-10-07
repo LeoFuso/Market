@@ -36,10 +36,12 @@ public class AddCartItemRequest implements Serializable, CartItemRequest {
         this.quantity = Objects.requireNonNull(quantity);
     }
 
+    @Override
     public Long getCartId() {
         return cartId;
     }
 
+    @Override
     public Long getOfferId() {
         return offerId;
     }
